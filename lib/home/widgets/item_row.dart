@@ -15,6 +15,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final location =
         context.read<LocationsNotifier>().location(item.locationId);
+
     return Card(
         child: Column(children: [
       const SizedBox(height: 1),

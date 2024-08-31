@@ -26,7 +26,7 @@ class HomeScreen extends HookWidget {
           IconButton(
             onPressed: () async {
               await JsonDatabase.clearDatabase();
-              JsonDatabase.initialize();
+              await JsonDatabase.initialize();
             },
             icon: const Icon(Icons.delete),
           ),

@@ -16,13 +16,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     JsonDatabase.initialize();
-    final notifier = ItemNotifier();
-    notifier.loadItems();
+    final itemNotifier = ItemNotifier();
+    itemNotifier.loadItems();
+    final locationsNotifier = LocationsNotifier();
+    locationsNotifier.loadLocations();
 
     return MultiProvider(
       providers: [
-        Provider<ItemNotifier>(create: (_) => notifier),
-        Provider<LocationsNotifier>(create: (_) => LocationsNotifier()),
+        Provider<ItemNotifier>(create: (_) => itemNotifier),
+        Provider<LocationsNotifier>(create: (_) => locationsNotifier),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

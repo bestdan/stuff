@@ -12,8 +12,8 @@ class LocationsNotifier extends StateNotifier<List<Location>> {
 
   List<Location> get locations => state;
 
-  Location location(int id) {
-    return locations.firstWhere((location) => location.id == id);
+  Location location(int locationId) {
+    return state.firstWhere((location) => location.id == locationId);
   }
 
   Future<void> loadLocations() async {

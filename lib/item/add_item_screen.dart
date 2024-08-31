@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 import 'package:stuff/item/item.dart';
-import 'package:stuff/models/location.dart';
 import 'package:stuff/notifiers/items_state_notifier.dart';
 
 class NewItemScreen extends HookWidget {
@@ -13,13 +12,14 @@ class NewItemScreen extends HookWidget {
     final formKey = GlobalKey<FormState>();
     final name = useState<String?>(null);
     final description = useState<String?>(null);
-    final location = useState<Location?>(null);
+    //final location = useState<Location?>(null);
     final context = useContext();
 
     Future<void> submitForm() async {
       if (formKey.currentState!.validate()) {
         formKey.currentState!.save();
         final nextItemId = context.read<ItemNotifier>().nextItemId();
+
         final locationId = context
             .read<ItemNotifier>()
             .nextLocationId(); //TOOD(dan): need to make run off add location
@@ -28,7 +28,7 @@ class NewItemScreen extends HookWidget {
           id: nextItemId,
           displayName: name.value ?? 'New item',
           description: description.value ?? "New descripton",
-          locationId: locationId,
+          locationId: 1, //TODO(dan): update
           lastUpdated: DateTime.now(),
         );
 

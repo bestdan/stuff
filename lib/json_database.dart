@@ -70,7 +70,7 @@ class JsonDatabase {
 
   static Future<List<Location>> getLocations() async {
     final data = await _readDatabase();
-    return (data['location'] as List)
+    return (data['locations'] as List)
         .map((location) => Location.fromMap(location))
         .toList();
   }
