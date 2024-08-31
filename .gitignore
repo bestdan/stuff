@@ -41,3 +41,140 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+-----
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+DerivedData/
+.generated/
+
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+xcuserdata
+
+*.moved-aside
+*sync/
+
+# IntelliJ related
+*.ipr
+*.iws
+
+/.vscode/
+
+# Flutter/Dart/Pub related
+**/coverage/**
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+.android/
+.ios/
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Exceptions to above rules.
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+# Ignore the root .idea folder except certain folders
+**/.idea/*
+!**/.idea/codeStyles/
+!**/.idea/runConfigurations/
+
+# Local environment related
+**/.env.*
+!**/.env.local_example
+
+## Android
+
+# Miscellaneous
+bin
+.classpath
+.project
+BuildConfig.java
+org.eclipse.jdt.core.prefs
+gen
+*.iml
+out
+captures
+build
+android/app/bin
+android/app/build
+Mixpanel/build
+.gradle
+.gradle/1.12
+ActionBarSherlock
+AmazingListViewLib
+Android-ViewPagerIndicator
+SherlockNavigationDrawer
+local.properties
+android/app/assets/crashlytics-build.properties
+android/app/src/main/res/values/com_crashlytics_export_strings.xml
+android/logs/betterment-default.log
+hs_err_pid*.log
+ajcore*
+.DS_Store
+betterment_android_upload.jks
+google-play-key.json
+.bundle
+vendor
+android/fastlane/report.xml
+android/sentry.properties
+
+## iOS
+
+# Pods
+flutter/app/ios/Pods/
+
+# Miscellaneous
+flutter/app/ios/Betterment.xcodeproj/project.xcworkspace
+flutter/app/ios/Betterment.xcodeproj/xcuserdata
+flutter/app/ios/Betterment.xcworkspace/xcuserdata
+build
+node_modules
+upload_dsym_results
+.DS_Store
+flutter/app/ios/fastlane/test_output
+flutter/app/ios/fastlane/report.xml
+.bundle
+vendor
+test_output
+flutter/app/ios/testtrack/build_timestamp
+default.profraw
+flutter/app/ios/.api_key_appstore.json
+
+flutter/app/ios/fastlane/Preview.html
+
+**/*.xcuserdatad/*
+xcuserdata/
+
+.stage-proxy-token
+stage-proxy-token
+.merge-secrets-with-template
+
+
+# Playgrounds
+*.xctimeline
+
