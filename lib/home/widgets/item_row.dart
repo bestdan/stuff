@@ -22,7 +22,7 @@ class ItemCard extends StatelessWidget {
       ListTile(
         title: Text(item.displayName),
         subtitle: Text(item.description),
-        trailing: Text(location.displayName),
+        trailing: Text(location?.displayName ?? 'No matching location'),
         tileColor: const Color.fromARGB(255, 123, 206, 244),
       ),
       const SizedBox(height: 1),

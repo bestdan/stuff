@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
+import 'package:stuff/home/home_loading.dart';
 import 'package:stuff/home/home_screen.dart';
 import 'package:stuff/json_database.dart';
 import 'package:stuff/notifiers/items_state_notifier.dart';
@@ -10,21 +12,26 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends HookWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    JsonDatabase.initialize();
-    final itemNotifier = ItemNotifier();
-    itemNotifier.loadItems();
-    final locationsNotifier = LocationsNotifier();
-    locationsNotifier.loadLocations();
+    final isInitialized = useState(false);
+
+    useEffect(() {
+      Future<void> initialize() async {
+        isInitialized.value = await JsonDatabase.initialize();
+      }
+
+      initialize();
+      return null;
+    }, []);
 
     return MultiProvider(
       providers: [
-        Provider<ItemNotifier>(create: (_) => itemNotifier),
-        Provider<LocationsNotifier>(create: (_) => locationsNotifier),
+        Provider<ItemNotifier>(create: (_) => ItemNotifier()),
+        Provider<LocationsNotifier>(create: (_) => LocationsNotifier()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -32,7 +39,9 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,
         ),
-        home: const HomeScreen(),
+        home: isInitialized.value
+            ? const HomeScreen()
+            : const HomeLoadingScreen(),
       ),
     );
   }

@@ -20,7 +20,7 @@ class JsonDatabase {
     return File('${directory.path}/$_fileName');
   }
 
-  static Future<void> initialize() async {
+  static Future<bool> initialize() async {
     final file = await _localFile;
     if (!await file.exists()) {
       await file.writeAsString(json.encode({
@@ -28,6 +28,7 @@ class JsonDatabase {
         'locations': [Location(id: 1, displayName: 'Home').toMap()]
       }));
     }
+    return true;
   }
 
   static Future<void> clearDatabase() async {
@@ -37,7 +38,7 @@ class JsonDatabase {
     }
   }
 
-  static Future<Map<String, dynamic>> _readDatabase() async {
+  static Future<Map<String, dynamic>> readDatabase() async {
     if (!await _fileExists) {
       return _defaultData;
     }
@@ -49,6 +50,15 @@ class JsonDatabase {
       print('Error reading database: $e');
       return {'items': [], 'locations': []};
     }
+  }
+
+  static Future<String?> vomitDatabase() async {
+    if (!await _fileExists) {
+      return null;
+    }
+    final file = await _localFile;
+    final contents = await file.readAsString();
+    return contents;
   }
 
   static Future<void> _writeDatabase(Map<String, dynamic> data) async {
@@ -64,26 +74,26 @@ class JsonDatabase {
   }
 
   static Future<List<Item>> getItems() async {
-    final data = await _readDatabase();
+    final data = await readDatabase();
     return (data['items'] as List).map((item) => Item.fromMap(item)).toList();
   }
 
   static Future<List<Location>> getLocations() async {
-    final data = await _readDatabase();
+    final data = await readDatabase();
     return (data['locations'] as List)
         .map((location) => Location.fromMap(location))
         .toList();
   }
 
   static Future<void> addItem(Item item) async {
-    final data = await _readDatabase();
+    final data = await readDatabase();
 
     data['items'].add(item.toMap());
     await _writeDatabase(data);
   }
 
   static Future<void> updateItem(Item item) async {
-    final data = await _readDatabase();
+    final data = await readDatabase();
     final index = (data['items'] as List).indexWhere((i) => i['id'] == item.id);
     if (index != -1) {
       data['items'][index] = item.toMap();
@@ -92,13 +102,13 @@ class JsonDatabase {
   }
 
   static Future<void> deleteItem(int id) async {
-    final data = await _readDatabase();
+    final data = await readDatabase();
     data['items'].removeWhere((item) => item['id'] == id);
     await _writeDatabase(data);
   }
 
   static Future<void> addLocation(Location location) async {
-    final data = await _readDatabase();
+    final data = await readDatabase();
     if (!data['locations'].contains(location)) {
       data['locations'].add(location);
       await _writeDatabase(data);
@@ -106,7 +116,7 @@ class JsonDatabase {
   }
 
   static Future<void> updateLocation(Location location) async {
-    final data = await _readDatabase();
+    final data = await readDatabase();
     final index =
         (data['location'] as List).indexWhere((i) => i['id'] == location.id);
     if (index != -1) {
@@ -116,7 +126,7 @@ class JsonDatabase {
   }
 
   static Future<void> deleteLocation(String location) async {
-    final data = await _readDatabase();
+    final data = await readDatabase();
     data['locations'].remove(location);
     await _writeDatabase(data);
   }
